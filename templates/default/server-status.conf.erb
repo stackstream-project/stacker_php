@@ -1,0 +1,17 @@
+ExtendedStatus on
+
+<Location /server-status>
+  SetHandler server-status
+
+  Order Deny,Allow
+  Deny from all
+  Allow from localhost
+</Location>
+
+<VirtualHost 127.0.0.1:80>
+  DocumentRoot <%= @document_root %>
+
+  <Directory "<%= @document_root %>">
+    AllowOverride None
+  </Directory>
+</VirtualHost>

@@ -1,0 +1,40 @@
+Listen 80
+NameVirtualHost *:80
+
+<VirtualHost 0.0.0.0:80>
+  DocumentRoot <%= @document_root %>
+
+  Options Includes FollowSymLinks MultiViews
+
+  <% if @ssl_redirect %>
+  Redirect permanent / <%= @ssl_redirect %>
+  <% end %>
+</VirtualHost>
+
+Listen 81
+NameVirtualHost *:81
+
+<VirtualHost 0.0.0.0:81>
+  DocumentRoot <%= @document_root %>
+
+  Options Includes FollowSymLinks MultiViews
+</VirtualHost>
+
+<% if @ssl_enable %>
+
+Listen 443
+NameVirtualHost *:443
+
+<VirtualHost 0.0.0.0:443>
+  DocumentRoot <%= @document_root %>
+
+  Options Includes FollowSymLinks MultiViews
+
+  LoadModule ssl_module modules/mod_ssl.so
+
+  SSLEngine on
+  SSLCertificateFile /etc/httpd/.ssl/local.cer
+  SSLCertificateKeyFile /etc/httpd/.ssl/local.key
+</VirtualHost>
+
+<% end %>
