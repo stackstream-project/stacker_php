@@ -1,7 +1,7 @@
 directory node[:project][:directory] do
   owner "root"
   group "root"
-  mode 00700
+  mode 00755
   action :create
 end
 
@@ -73,7 +73,7 @@ end
 directory "#{node[:project][:directory]}/#{node[:project][:name]}" do
   owner "apache"
   group "apache"
-  mode 00700
+  mode 00755
   recursive true
   action :create
 end
@@ -81,7 +81,7 @@ end
 directory "#{node[:project][:directory]}/#{node[:project][:name]}/versions" do
   owner "apache"
   group "apache"
-  mode 00700
+  mode 00755
   recursive true
   action :create
 end

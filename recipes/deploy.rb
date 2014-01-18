@@ -1,7 +1,7 @@
 project_files = "#{Chef::Config[:file_cache_path]}/#{node[:project][:name]}_#{node[:project][:version]}.tar.gz"
 
 stacker_file project_files do
-  remote_source "projects/#{node[:project][:name]}/#{project_files}"
+  remote_path "projects/#{node[:project][:name]}/#{node[:project][:name]}_#{node[:project][:version]}.tar.gz"
   action :create_if_missing
 end
 
@@ -82,12 +82,12 @@ ruby_block "check for older project versions" do
     
     to_keep_counter = version_directories.count
 
-    return if node[:project][:versions_to_keep] > to_keep_counter
+    return if node[:project][:versions_to_keep].to_i > to_keep_counter
 
     version_directories.each do |directory|
       version = directory.gsub("#{node[:project][:directory]}/#{node[:project][:name]}/versions/",'').to_i
       
-      next if version == node[:project][:version]
+      next if version == node[:project][:version].to_i
 
       begin
         ::FileUtils.rm_rf(directory)
@@ -97,7 +97,7 @@ ruby_block "check for older project versions" do
 
       to_keep_counter-= 1
 
-      break if to_keep_counter == node[:project][:versions_to_keep]
+      break if to_keep_counter == node[:project][:versions_to_keep].to_i
     end
   end
   action :create
