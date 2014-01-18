@@ -1,6 +1,8 @@
 # Description
 
-stacker_php is a top level cookbook that deploys apache, php and optional mysql. This is cookbook relies on the attributes given to it to do the configuration you want it to do. Currently everything deployed is in the cookbook, please see the roadmap to make this a true top level cookbook.
+stacker_php is a top level cookbook that deploys apache, php and optional mysql/ftp/cloudwatch/ssl.
+
+This is cookbook relies on the attributes given for a customized configuration. Currently everything deployed is in the cookbook, please see the roadmap to make this a true top level cookbook.
 
 # Roadmap
 
@@ -35,24 +37,19 @@ Tested on:
 * `[:project][:name]` - the project's name
 * `[:project][:version]` - version of the project to deploy
 * `[:project][:versions_to_keep]` - how many versions to keep on the server(s)
-
 * `[:php][:configuration]` - php.ini attributes hash
-
 * `[:ftp][:enable]` - true or false (true will setup FTP access, false will not)
 * `[:ftp][:username]` - user to create for FTP access
 * `[:ftp][:password]` - password for ftp user
-
 * `[:database][:enable]` - true or false (true will setup database on local server, false will not)
 * `[:database][:endpoint]` - database server dns record
 * `[:database][:port]` - database server port
 * `[:database][:name]` - database name to use (if enable is true, then it will create it also)
 * `[:database][:username]` - database user for project (if enable is true, then it will create the user also)
-* `[:database][:password]` - database password for user (if enable is true, then it will assign the password to the user)
-
-* `[:ssl][:enable]` - true or false (true will setup the web server with SSL certificates from `[:ssl][:file]` attribute)
+* `[:database][:password]` - database password (if enable is true, will assign the password to the user)
+* `[:ssl][:enable]` - true or false (true will setup server with SSL certificates from `[:ssl][:file]` attribute)
 * `[:ssl][:redirect]` - URL to redirect non-ssl requests to (optional)
 * `[:ssl][:file]` - certificate archive file url (required if `[:ssl][:enable]` = 'true')
-
 * `[:cloudwatch][:enable]` - true or false (true will setup cloudwatch cron jobs)
 * `[:cloudwatch][:metric_name]` - A unique cloudwatch metric name
 * `[:cloudwatch][:namespace]` - A cloudwatch namespace to add the metric to
