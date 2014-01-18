@@ -55,7 +55,6 @@ Tested on:
 * `[:cloudwatch][:namespace]` - A cloudwatch namespace to add the metric to
 * `[:cloudwatch][:key]` - API Key
 * `[:cloudwatch][:secret]` - API Secret Key
-
 * `[:infrastructure_provider]` - For stacker_file dependency
 
 ### Output
