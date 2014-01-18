@@ -9,9 +9,9 @@ stacker_php is a top level cookbook that deploys apache, php and optional mysql.
 3. <del>Optionally deploy mysql 5.3+</del>
 4. <del>Configure ephemeral mounts for application</del>
 5. <del>Add database_config.php file for applications to use it</del>
-6. Optionally deploy SSL certificates and/or ports for a load balancer to use
-7. Optionally deploy cloudwatch cron job for apache statistics
-8. Optionally deploy ftp access to the server
+6. <del>Optionally deploy SSL certificates and/or ports for a load balancer to use</del>
+7. <del>Optionally deploy cloudwatch cron job for apache statistics</del>
+8. <del>Optionally deploy ftp access to the server</del>
 9. Move each deployment type to it's own seperate cookbook (apache, php, mysql, etc...) this way we can use this cookbook as a top level cookbook
 
 # Requirements

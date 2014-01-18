@@ -4,14 +4,5 @@
 \#*#
 .*.sw[a-z]
 *.un~
-/cookbooks
 .DS_Store
-
-# Bundler
-bin/*
-.bundle/*
-
-.kitchen/*
-.kitchen.local.yml
-
 .vagrant
