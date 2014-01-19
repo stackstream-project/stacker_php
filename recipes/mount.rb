@@ -1,7 +1,7 @@
-directory node[:project][:directory] do
+directory "/ephemeral" do
   owner "root"
   group "root"
-  mode 00755
+  mode 00775
   action :create
 end
 
@@ -24,65 +24,48 @@ mounts.each_with_index do |m,i|
   end
 end
 
-execute "create virtual group project" do
-  command "vgcreate project /dev/xvdb"
+execute "create virtual group media" do
+  command "vgcreate media /dev/xvdb"
   user "root"
   group "root"
   action :run
-  not_if "vgdisplay project"
+  not_if "vgdisplay media"
   only_if "fdisk -l | grep /dev/xvdb"
 end
 
 mounts.each_index do |i,m|
-  execute "extend virtual group project with /dev/#{m}" do
-    command "vgextend project /dev/#{m}"
+  execute "extend virtual group media with /dev/#{m}" do
+    command "vgextend media /dev/#{m}"
     user "root"
     group "root"
     action :run
-    only_if "vgextend -t project /dev/#{m}"
+    only_if "vgextend -t media /dev/#{m}"
     only_if "fdisk -l | grep /dev/#{m}"
   end
 end
 
-execute "create logical group project" do
-  command "lvcreate -l 100%FREE -n ephemeral project"
+execute "create logical group ephemeral" do
+  command "lvcreate -l 100%FREE -n ephemeral media"
   user "root"
   group "root"
   action :run
-  not_if "lvdisplay /dev/mapper/project-ephemeral"
+  not_if "lvdisplay /dev/mapper/media-ephemeral"
   only_if "fdisk -l | grep /dev/xvdb"
 end
 
 execute "create ext4 filesystem" do
-  command "mkfs.ext4 /dev/mapper/project-ephemeral"
+  command "mkfs.ext4 /dev/mapper/media-ephemeral"
   user "root"
   group "root"
   action :run
-  not_if "blkid /dev/mapper/project-ephemeral | grep ext4"
+  not_if "blkid /dev/mapper/media-ephemeral | grep ext4"
   only_if "fdisk -l | grep /dev/xvdb"
 end
 
-mount node[:project][:directory] do
-  device "/dev/mapper/project-ephemeral"
+mount "/ephemeral" do
+  device "/dev/mapper/media-ephemeral"
   fstype "ext4"
   options "auto"
   action [:mount, :enable]
   only_if "fdisk -l | grep /dev/xvdb"
 end
-
-directory "#{node[:project][:directory]}/#{node[:project][:name]}" do
-  owner "apache"
-  group "apache"
-  mode 00755
-  recursive true
-  action :create
-end
-
-directory "#{node[:project][:directory]}/#{node[:project][:name]}/versions" do
-  owner "apache"
-  group "apache"
-  mode 00755
-  recursive true
-  action :create
-end
-

@@ -1,6 +1,6 @@
 # Description
 
-stacker_php is a top level cookbook that deploys apache, php and optional mysql/ftp/cloudwatch/ssl.
+stacker_php is a top level cookbook that deploys apache, php and optional mysql/cloudwatch/ssl.
 
 This is cookbook relies on the attributes given for a customized configuration. Currently everything deployed is in the cookbook, please see the roadmap to make this a true top level cookbook.
 
@@ -13,8 +13,7 @@ This is cookbook relies on the attributes given for a customized configuration. 
 5. <del>Add database_config.php file for applications to use it</del>
 6. <del>Optionally deploy SSL certificates and/or ports for a load balancer to use</del>
 7. <del>Optionally deploy cloudwatch cron job for apache statistics</del>
-8. <del>Optionally deploy ftp access to the server</del>
-9. Move each deployment type to it's own seperate cookbook (apache, php, mysql, etc...) this way we can use this cookbook as a top level cookbook
+8. Move each deployment type to it's own seperate cookbook (apache, php, mysql, etc...) this way we can use this cookbook as a top level cookbook
 
 # Requirements
 
@@ -38,9 +37,6 @@ Tested on:
 * `[:project][:version]` - version of the project to deploy
 * `[:project][:versions_to_keep]` - how many versions to keep on the server(s)
 * `[:php][:configuration]` - php.ini attributes hash
-* `[:ftp][:enable]` - true or false (true will setup FTP access, false will not)
-* `[:ftp][:username]` - user to create for FTP access
-* `[:ftp][:password]` - password for ftp user
 * `[:database][:enable]` - true or false (true will setup database on local server, false will not)
 * `[:database][:endpoint]` - database server dns record
 * `[:database][:port]` - database server port

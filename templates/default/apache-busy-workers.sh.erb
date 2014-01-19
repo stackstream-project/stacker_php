@@ -4,6 +4,6 @@ export PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/opt/aw
 export AWS_CLOUDWATCH_HOME=/opt/aws/apitools/mon
 export JAVA_HOME=/usr/lib/jvm/jre
 
-WORKERS=`curl -L http://localhost/server-status?auto | grep BusyWorkers | awk '{ print $2 }'`
+WORKERS=`curl -s -L http://localhost/server-status?auto | grep BusyWorkers | awk '{ print $2 }'`
 
 /opt/aws/bin/mon-put-data -I <%= @key %> -S "<%= @secret %>" --metric-name <%= @metric_name %> --namespace "<%= @namespace %>" --unit Count --value $WORKERS

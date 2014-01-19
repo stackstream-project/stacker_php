@@ -8,7 +8,7 @@ end
 directory "#{node[:project][:directory]}/#{node[:project][:name]}/versions/#{node[:project][:version]}" do
   owner "apache"
   group "apache"
-  mode 00700
+  mode 00775
   recursive true
   action :create
 end
@@ -18,12 +18,6 @@ execute "extracting project files" do
   command "tar -zxf #{project_files}"
   action :run
   only_if "test -f #{project_files}"
-end
-
-execute "fix ownership for project files" do
-  cwd "#{node[:project][:directory]}/#{node[:project][:name]}"
-  command "chown -R apache. . && chmod -R 700 ."
-  action :run
 end
 
 link "remove current version" do
@@ -50,7 +44,7 @@ end
 
 template "#{node[:project][:directory]}/#{node[:project][:name]}/current/database_config.php" do
   source "database_config.php.erb"
-  mode "0644"
+  mode "0775"
   owner "apache"
   group "apache"
   variables(
@@ -101,4 +95,10 @@ ruby_block "check for older project versions" do
     end
   end
   action :create
+end
+
+execute "fix ownership for project files" do
+  cwd "#{node[:project][:directory]}"
+  command "chown -R apache. . && chmod -R 775 ."
+  action :run
 end

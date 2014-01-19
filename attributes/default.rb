@@ -14,10 +14,6 @@ default[:database][:name] = 'testproject_development'
 default[:database][:username] = 'testproject_user'
 default[:database][:password] = 'testproject_password'
 
-default[:ftp][:enable] = 'false'
-default[:ftp][:username] = 'testproject_user'
-default[:ftp][:password] = 'testproject_password'
-
 default[:ssl][:enable] = 'false'
 default[:ssl][:redirect] = ''
 default[:ssl][:file] = ''
