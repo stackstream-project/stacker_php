@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby "2.0.0"
 
 gem 'chef'
-gem 'berkshelf'
+gem 'berkshelf', '>= 2.0.11'
 gem 'thor-foodcritic'
 gem 'rspec'
 gem 'chefspec'
